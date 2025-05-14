@@ -66,7 +66,7 @@ Daawat/
 ```
 4. Add your Firebase config to firebase.js.
 
-##📌 Future Improvements
+## 📌 Future Improvements
 1. Email/SMS notification for attendees  
 2. Admin panel for event moderation  
 3. Event attendance tracking  
