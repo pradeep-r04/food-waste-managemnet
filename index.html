@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Daawat</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://cdn.jsdelivr.net/npm/boxicons@2.1.1/css/boxicons.min.css" rel="stylesheet">
+  <link rel="icon" href="logo.png" type="image/icon type">
+</head>
+<body>
+  
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="menu-btn" onclick="toggleMenu()">☰</div>
+    <h1 class="app-name">DAAWAT</h1>
+    <nav id="menu" class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="#">My Account</a>
+      <a href="login.html">Login</a>
+      <a href="about.html">About Us</a>
+    </nav>
+  </header>
+
+  <!-- Main Container -->
+  <main class="main-container">
+    <!-- Left Section: Description and Image Slider -->
+    <div class="card">
+      <div class="left-section">
+        <h2>Food Wastage in India</h2>
+        <p><b>In India, millions of tons of food are wasted every year, while many go to bed on an empty stomach. Let's come together to reduce food wastage and share surplus food with those in need!</b></p>
+
+        <!-- Image Slider -->
+        <div class="image-slider">
+          <div class="slider-images">
+            <img src="image1.jpg" alt="Image 1" class="sliderImage">
+            <img src="image2.jpg" alt="Image 2" class="sliderImage">
+            <img src="image3.jpg" alt="Image 3" class="sliderImage">
+            <img src="image4.jpg" alt="Image 4" class="sliderImage">
+            <img src="image5.jpg" alt="Image 5" class="sliderImage">
+          </div>
+          <button class="prev-btn" onclick="changeSlide(-1)">&#10094;</button>
+          <button class="next-btn" onclick="changeSlide(1)">&#10095;</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Section: Main Content -->
+    <div class="right-section">
+      <div style="display: flex; flex-direction: column; gap: 40px; align-items: center;">
+        <a href="host.html" class="main-btn">Host</a>
+        <a href="attend.html" class="main-btn">Attend</a>
+      </div>
+
+      <!-- Hero's Board-->
+      <div class="hero-card">
+        <div style="background-color: #fff3e0; padding: 20px; border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); text-align: center; font-family: 'Segoe UI', sans-serif;margin-top: 10%;">
+          <h2 style="color: #ff6f00; margin-bottom: 16px;">
+            🌟 Hero's Board 🌟
+          </h2>
+
+          <div style="font-size: 16px;">
+            <p style="margin: 8px 0;">
+              <a href="https://www.thehindu.com/news/cities/chennai/extending-the-banquet-hall-and-curbing-food-waste/article68698750.ece" 
+                 target="_blank" rel="noopener noreferrer" 
+                 style="color: #d84315; text-decoration: none;">
+                📰 Extending the Banquet Hall – More...
+              </a>
+            </p>
+            <p style="margin: 8px 0;">
+              <a href="https://www.newindianexpress.com/good-news/2024/Oct/20/food-for-thought-how-not-to-waste" 
+                 target="_blank" rel="noopener noreferrer" 
+                 style="color: #d84315; text-decoration: none;">
+                🍽️ Food for Thought – More...
+              </a>
+            </p>
+            <p style="margin: 8px 0;">
+              <a href="https://www.newindianexpress.com/world/2022/Sep/11/hindu-temple-providesfood-and-shelter-to-hundreds-of-flood-hit-people-pakistan-2497120.html" 
+                 target="_blank" rel="noopener noreferrer" 
+                 style="color: #d84315; text-decoration: none;">
+                📰 Temple provides food and shelter to hundreds of flood-hit people  – More...
+              </a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+<footer class="footer">
+  <div class="social-media">
+    <a href="https://www.instagram.com/whypradeeep/" style="--i:7"><i class='bx bxl-instagram'></i></a>
+    <a href="https://www.linkedin.com/in/pradeep-singh-dl/" style="--i:8"><i class='bx bxl-linkedin'></i></a>
+    <a href="https://twitter.com/altpradeep" style="--i:9"><i class='bx bxl-twitter'></i></a>
+    <a href="https://github.com/pradeep-r04" style="--i:10"><i class='bx bxl-github'></i></a>
+  </div>
+  <div class="text">
+    <p>© 2025 Daawat. All Rights Reserved.</p>
+  </div>
+</footer>
+
+
+  <script src="script.js"></script>
+</body>
+</html>

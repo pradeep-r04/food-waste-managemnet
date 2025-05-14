@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Attend Daawat</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://cdn.jsdelivr.net/npm/boxicons@2.1.1/css/boxicons.min.css" rel="stylesheet">
+  <link rel="icon" href="logo.png" type="image/icon type">
+  <!-- Leaflet CSS -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  />
+</head>
+<body>
+
+  <header class="navbar">
+    <a href="index.html" class="menu-btn">←</a>
+    <h1 class="app-name">Attend a Daawat</h1>
+  </header>
+
+  <main class="attend-main">
+    <!-- 🔒 Logged-in user info -->
+    <div id="profile" class="profile-box">
+      <img id="profilePhoto" src="" alt="Profile Photo" width="80" style="border-radius: 50%;">
+      <p id="profileName">Name: Guest</p>
+      <p id="profileId">UID: N/A</p>
+    </div>
+    
+
+    <hr>
+
+    <!-- 📃 Daawat List -->
+    <h2>Nearby Daawats</h2>
+    <ul id="daawatItems" class="daawat-card"></ul>
+    <p id="noDaawatMessage" class="no-daawat-msg">No nearby Daawats available at the moment. Please check back later!</p>
+
+    <hr>
+
+    <!-- 🗘️ Map -->
+    <h2>Daawat Map</h2>
+    <div id="daawatMap" class="map-container"></div>
+  </main>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <!-- Firebase Setup and Map Logic -->
+  <script>
+     const firebaseConfig = {
+  apiKey: "AIzaSyBo1a74IrCp8_wNYNoy4bumIG6FVjPdHNg",
+  authDomain: "daawat-food-waste-management.firebaseapp.com",
+  projectId: "daawat-food-waste-management",
+  storageBucket: "daawat-food-waste-management.appspot.com",
+  messagingSenderId: "849758831795",
+  appId: "1:849758831795:web:abe5c6b27dc663e442dcc6",
+  measurementId: "G-209MRJH318",
+  
+};
+
+    firebase.initializeApp(firebaseConfig);
+    const database = firebase.database();
+    const auth = firebase.auth();
+
+    let userLocation = null;
+
+    // Delete expired daawats
+    function deleteExpiredDaawats() {
+      const now = new Date();
+
+      firebase.database().ref("daawats").once("value", (snapshot) => {
+        snapshot.forEach((childSnapshot) => {
+          const data = childSnapshot.val();
+          const key = childSnapshot.key;
+
+          if (data.timestamp && data.duration) {
+            const startTime = new Date(data.timestamp);
+            startTime.setMinutes(startTime.getMinutes() + parseInt(data.duration));
+
+            if (now > startTime) {
+              firebase.database().ref("daawats/" + key).remove()
+                .then(() => {
+                  console.log(`Expired Daawat "${data.name}" removed.`);
+                })
+                .catch((error) => {
+                  console.error("Error removing Daawat:", error);
+                });
+            }
+          }
+        });
+      });
+    }
+
+    // Auth state change and profile update
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        document.getElementById("profileName").textContent = "Name: " + (user.displayName || "Guest");
+        document.getElementById("profileId").textContent = "UID: " + user.uid;
+        document.getElementById("profilePhoto").src = user.photoURL || "https://via.placeholder.com/80";
+      }
+    });
+
+    // Time remaining calculation
+    function calculateTimeRemaining(timestamp, durationMinutes) {
+      const end = new Date(timestamp);
+      end.setMinutes(end.getMinutes() + parseInt(durationMinutes));
+      const diff = end - new Date();
+      if (diff < 0) return "Expired";
+      const mins = Math.floor(diff / 60000);
+      return `${mins} mins left`;
+    }
+
+    // Get distance from lat/lon
+    function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
+      const R = 6371;
+      const dLat = (lat2 - lat1) * Math.PI / 180;
+      const dLon = (lon2 - lon1) * Math.PI / 180;
+      const a =
+        0.5 - Math.cos(dLat) / 2 +
+        Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+        (1 - Math.cos(dLon)) / 2;
+      return R * 2 * Math.asin(Math.sqrt(a));
+    }
+
+    let map;
+
+    // Fetch and display daawats
+    function fetchDaawats() {
+      database.ref("daawats").once("value", (snapshot) => {
+        const daawatItems = document.getElementById("daawatItems");
+        const noDaawatMsg = document.getElementById("noDaawatMessage");
+        daawatItems.innerHTML = "";
+        let hasNearby = false;
+
+        if (!map) {
+          map = L.map("daawatMap").setView([28.6139, 77.2090], 12);
+          L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            attribution: '&copy; OpenStreetMap contributors',
+          }).addTo(map);
+        }
+
+        map.eachLayer((layer) => {
+          if (layer instanceof L.Marker) map.removeLayer(layer);
+        });
+
+        if (userLocation) {
+          const userMarker = L.marker([userLocation.lat, userLocation.lng], {
+            icon: L.icon({
+              iconUrl: 'https://cdn-icons-png.flaticon.com/512/64/64113.png',
+              iconSize: [32, 32],
+              iconAnchor: [16, 32]
+            })
+          }).addTo(map);
+          userMarker.bindPopup("You are here").openPopup();
+          map.setView([userLocation.lat, userLocation.lng], 13);
+        }
+
+        snapshot.forEach((childSnapshot) => {
+          const data = childSnapshot.val();
+
+          if (!data.latitude || !data.longitude) return;
+
+          const lat = data.latitude;
+          const lng = data.longitude;
+
+          let distance = "Unknown";
+          let isNearby = true;
+
+          if (userLocation) {
+            distance = getDistanceFromLatLonInKm(userLocation.lat, userLocation.lng, lat, lng).toFixed(2) + " km";
+            isNearby = parseFloat(distance) <= 10;
+          }
+
+          if (isNearby) {
+            hasNearby = true;
+            const timeLeft = calculateTimeRemaining(data.timestamp, data.duration || 60);
+
+            const item = document.createElement("li");
+            item.className = "daawat-card";
+            item.innerHTML = `
+              <h3>${data.name}</h3>
+              <p><strong>Address:</strong> ${data.address}</p>
+              <p><strong>Food:</strong> ${data.foodType}</p>
+              <p><strong>Distance:</strong> ${distance}</p>
+              <p><strong>Time Left:</strong> ${timeLeft}</p>
+            `;
+            daawatItems.appendChild(item);
+
+            L.marker([lat, lng])
+              .addTo(map)
+              .bindPopup(`<strong>${data.name}</strong><br>${data.foodType}<br>${timeLeft}`);
+          }
+        });
+
+        if (!hasNearby) {
+          noDaawatMsg.style.display = "block";
+        } else {
+          noDaawatMsg.style.display = "none";
+        }
+      });
+    }
+
+    // Call function on page load
+    window.onload = function () {
+      deleteExpiredDaawats(); // First, clean old ones
+
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((position) => {
+          userLocation = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          };
+          fetchDaawats();
+        }, (err) => {
+          console.warn("Location permission denied:", err);
+          fetchDaawats();
+        });
+      } else {
+        fetchDaawats();
+      }
+    };
+  </script>
+<footer class="footer">
+  <div class="social-media">
+    <a href="https://www.instagram.com/whypradeeep/" style="--i:7"><i class='bx bxl-instagram'></i></a>
+    <a href="https://www.linkedin.com/in/pradeep-singh-dl/" style="--i:8"><i class='bx bxl-linkedin'></i></a>
+    <a href="https://twitter.com/altpradeep" style="--i:9"><i class='bx bxl-twitter'></i></a>
+    <a href="https://github.com/pradeep-r04" style="--i:10"><i class='bx bxl-github'></i></a>
+  </div>
+  <div class="text">
+    <p>© 2025 Daawat. All Rights Reserved.</p>
+  </div>
+</footer>
+</body>
+</html>

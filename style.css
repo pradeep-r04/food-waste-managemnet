@@ -1,0 +1,488 @@
+/* Base Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* General Body Styling */
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-image: url(bg1.jpg);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* Navbar Styling */
+.navbar {
+  display: flex;
+  color: #F1E7E7;
+  padding: 1rem;
+  width: 100%;
+  background-color: #780C28;
+  justify-content: center; 
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+}
+
+.app-name {
+  font-size: 2rem;
+  text-align: center;
+  flex-grow: 1; 
+}
+
+.menu-btn {
+  position: absolute;
+  left: 1rem;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.nav-links {
+  position: fixed;
+  top: 0;
+  right: -250px; /* Initially off-screen */
+  height: 100%;
+  width: 250px;
+  background-color: #EEEEEE;
+  box-shadow: -2px 0 8px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  gap: 1rem;
+  transition: right 0.3s ease;
+  z-index: 1000;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #333;
+  font-size: 1.2rem;
+}
+
+.nav-links.show {
+  right: 0; /* Slide into view */
+}
+
+/* Profile Box */
+.profile-box {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; 
+  gap: 20px; 
+  margin: 20px 0;
+  padding: 20px;
+  border-radius: 12px;
+  background-color: #e9e4e4;
+  text-align: left;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.profile-photo {
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+}
+
+/* Daawat List */
+.daawat-list { 
+  display: flex;
+  margin: 20px;           
+  padding: 0;
+
+}
+
+.daawat-card {
+  background-color: #ffffff;
+  width: fit-content;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.daawat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.daawat-card h3 {
+  margin: 10px;
+  font-size: 1.2rem;
+}
+
+.daawat-card p {
+  margin: 10px;
+}
+
+/* No Daawat Message */
+.no-daawat-msg {
+  text-align: center;
+  color: #605a5a;
+  display: none;
+}
+
+/* Map Container */
+.map-container {
+  margin: 30px;
+  height: 400px;
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.map-container:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Buttons */
+.btn {
+  display: flex;
+  text-align: center;
+  background-color: #0aa2b9;
+  color: white;
+  padding: 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+  border-radius: 1rem;
+  text-decoration: none;
+  width: 500px;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #ff6f61; /* Modern Red */
+  
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
+.main-btn {
+  text-decoration: none;
+  background-color: #8E7DBE;
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  display: inline-block;
+}
+
+.main-btn:hover {
+  background-color: #7a68b4;
+  transform: translateY(-5px); /* moves up 5px */
+box-shadow:0 0 20px hsl(177, 97%, 47%);	
+}
+
+.hidden {
+  display: none;
+}
+
+/* Responsive Design */
+@media (min-width: 600px) {
+  .main-content {
+    flex-direction: row;
+    gap: 3rem;
+  }
+
+  .btn {
+    width: 15%;
+  }
+}
+
+/* New Section: Main Container */
+.main-container {
+  display: flex;
+  justify-content:space-between;
+  margin-top: 0;
+  padding-top: 100;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.right-section {
+  width: 35%; /* Adjust width of the right section */
+  display: flex;
+  flex-direction: column-reverse; /* Arrange elements vertically */
+  gap: 1.2rem; /* Add some space between elements */
+  justify-content:space-evenly;
+  align-items:center; /* Center the items horizontally */
+  padding: 10px;
+}
+
+.left-section {
+  width: 100%; /* Adjust this as needed */
+  text-align: left;
+}
+
+.left-section h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: darkred;
+}
+
+.left-section p {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+}
+
+/* Image Slider Container */
+
+.image-slider {
+  width: 100%; 
+  height: 400px; 
+  background-color: #eee;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  margin: 0 auto; /* Center the slider */
+}
+
+
+.slider-images {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+.slider-images img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block; /* Ensure images fill the container */
+}
+
+/* Navigation buttons */
+.prev-btn, .next-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  font-size: 2rem;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 100;
+  border-radius: 50%;
+}
+
+.prev-btn {
+  left: 10px;
+}
+
+.next-btn {
+  right: 10px;
+}
+
+.prev-btn:hover, .next-btn:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+
+/* Form Layout */
+.form-container {
+  max-width: 1500px;         
+  margin-top: 100px;           /* this centers the form horizontally */
+  padding: 20px;
+  background-color: #f9f9f9; /* optional: for visual clarity */
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.attend-main {
+  display: flex;
+  flex-direction: column;  /* Stack children vertically */
+  align-items: center;     /* Align items horizontally (centered) */
+  justify-content: center;
+  max-width: 20 00px;         /
+  margin-top: 100px;           /* this centers the form horizontally */
+  padding: 20px;
+  background-color: #fffdfd; /* optional: for visual clarity */
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.user-photo {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #eee;
+}
+
+form label {
+  display: block;
+  margin: 1rem 0 0.5rem;
+  font-weight: 600;
+}
+
+form input[type="text"],
+form input[type="number"] {
+  width: 100%;
+  padding: 0.6rem;
+  margin-top: 0.3rem;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+}
+
+.radio-group {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+form button[type="button"] {
+  margin-top: 0.5rem;
+  background-color: #ddd;
+  padding: 0.4rem 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+/* Map & Address Section */
+.map-address-wrapper {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+@media (min-width: 600px) {
+  .map-address-wrapper {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .map-address-wrapper #map {
+    flex: 2;
+    min-height: 300px;
+  }
+
+  .map-address-wrapper .address-box {
+    flex: 1;
+    margin-left: 1rem;
+  }
+}
+
+#map {
+  width: 90%;
+  height: 300px;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+}
+
+.card {
+  justify-content: left;
+  margin-right: 100px;
+  margin-top: 80px;
+  background: white;           /* More transparent */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+  padding: 20px;
+  width: fit-content;                              /* Shrinks to content */
+  width: 60%;                                 /* Prevent overflow */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: default;
+}
+
+.card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+.hero-card {
+  flex-direction: row-reverse;
+  background: white;           /* More transparent */
+  margin-top: 10px;
+  backdrop-filter: blur(50px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+  padding: 20px;
+  width: fit-content;                              /* Shrinks to content */
+  width: 100%;                                 /* Prevent overflow */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: default;
+}
+
+.hero-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+/* Footer */
+footer {
+  background-color: #0062cc;
+  color: white;
+  padding: 10px 0;
+  text-align: center;
+  font-size: 14px;
+}
+
+
+
+/* Footer styles */
+.footer {
+  background-color: #780C28;
+  color: white;
+  padding: 10px 35px; /* Reduced padding to make footer shorter */
+  text-align: center;
+  display: flex;
+  justify-content: space-between; /* Ensures icons and text are on opposite sides */
+  align-items: center; /* Vertically aligns the content */
+ 
+  bottom: 0;
+  width: 100%;
+  font-size: 28px;
+}
+
+.footer .social-media {
+  display: flex;
+  gap: 25px; /* Space between icons */
+}
+
+.footer .social-media a {
+  font-size: 28px; /* Icon size */
+  color: white;
+  text-decoration:none;
+  transition: transform 0.3s ease;
+}
+
+.footer .social-media a:hover {
+  transform: scale(1.2);
+box-shadow:0 0 20px #fff;	
+}
+
+.footer .text {
+  color: white;
+  font-size: 19px; /* Adjust text size */
+}
+.main-container {
+  padding-bottom: 60px; /* Adjust based on footer height */
+}
+
+

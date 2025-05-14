@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login - Daawat</title>
+  <style>
+    body {
+      background-color: #fffaf0;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding-top: 100px;
+    }
+    h1 {
+      color: #ff6f61;
+    }
+    button {
+      padding: 15px 30px;
+      font-size: 18px;
+      background-color: #ff6f61;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #e85c50;
+    }
+  </style>
+  <link rel="icon" href="logo.png" type="image/icon type">
+</head>
+<body>
+
+  <h1>Welcome to Daawat</h1>
+  <p>Please login to continue</p>
+  <button id="loginBtn">Login with Google</button>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
+    import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBo1a74IrCp8_wNYNoy4bumIG6FVjPdHNg",
+      authDomain: "daawat-food-waste-management.firebaseapp.com",
+      projectId: "daawat-food-waste-management",
+      storageBucket: "daawat-food-waste-management.appspot.com",
+      messagingSenderId: "849758831795",
+      appId: "1:849758831795:web:abe5c6b27dc663e442dcc6",
+      measurementId: "G-209MRJH318"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const provider = new GoogleAuthProvider();
+
+    document.getElementById("loginBtn").addEventListener("click", async () => {
+      try {
+        const result = await signInWithPopup(auth, provider);
+        const user = result.user;
+        console.log("✅ Signed in as:", user.displayName, user.email);
+        window.location.href = "host.html"; // or dashboard.html
+      } catch (error) {
+        console.error("❌ Login failed:", error.message);
+        alert("Login failed: " + error.message);
+      }
+    });
+  </script>
+</body>
+</html>

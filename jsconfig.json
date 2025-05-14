@@ -1,0 +1,7 @@
+{
+    "compilerOptions": {
+      "checkJs": true
+    },
+    "include": ["./**/*"]
+  }
+  background-color: #7D0A0A;
