@@ -83,5 +83,14 @@ Inspired by real issues of food wastage in India and successful community-driven
 
 
 ## IMAGES:
-## Home Page -
+### Home Page -
 ![Image](https://github.com/user-attachments/assets/d562fafc-04a3-46e8-ac86-57c307b0a9ef)
+
+### Hosting Page-
+![Image](https://github.com/user-attachments/assets/df132d27-465d-47f2-af5c-99d588a8a957)
+
+### Attending Page-
+![Image](https://github.com/user-attachments/assets/0cfc4137-62cc-42b3-bc00-4a6e94342115)
+
+### About Page-
+![Image](https://github.com/user-attachments/assets/9bf74f84-dccd-4dcf-8bb6-aabbdd0a0ac3)
