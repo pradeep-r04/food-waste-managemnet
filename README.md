@@ -50,3 +50,30 @@ Daawat/
 ├── firebase.js           # Firebase config and logic
 ├── /images               # All image assets used in the slider and site
 └── README.md             # Project documentation
+
+## 🔐 Firebase Setup
+1. Create a Firebase project.  
+2. Enable Authentication > Sign-In Method > Google.  
+3. Create a Realtime Database and set rules:
+{
+  "rules": {
+    ".read": "auth != null",
+    ".write": "auth != null"
+  }
+}
+4. Add your Firebase config to firebase.js.
+
+##📌 Future Improvements
+1. Email/SMS notification for attendees  
+2. Admin panel for event moderation  
+3. Event attendance tracking  
+4. Chat functionality between host and attendee  
+
+## 🙌 Acknowledgements
+Inspired by real issues of food wastage in India and successful community-driven food sharing initiatives.
+
+
+## Connect with me:
+| Name    | Email              | LinkedIn                                      | GitHub                      | Instagram                     |
+|---------|--------------------|-----------------------------------------------|-----------------------------|-------------------------------|
+| Pradeep | [Email](pradeep.singh04r@gmail.com)  | [LinkedIn](https://linkedin.com/in/pradeep-singh4) | [GitHub](https://github.com/pradeep-r04) | [Instagram](https://instagram.com/whypradeeep) |  
