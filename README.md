@@ -50,6 +50,7 @@ Daawat/
 ├── firebase.js           # Firebase config and logic
 ├── /images               # All image assets used in the slider and site
 └── README.md             # Project documentation
+```
 
 ## 🔐 Firebase Setup
 1. Create a Firebase project.  
