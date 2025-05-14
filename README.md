@@ -79,4 +79,9 @@ Inspired by real issues of food wastage in India and successful community-driven
 ## Connect with me:
 | Name    | Email              | LinkedIn                                      | GitHub                      | Instagram                     |
 |---------|--------------------|-----------------------------------------------|-----------------------------|-------------------------------|
-| Pradeep | [Email](pradeep.singh04r@gmail.com)  | [LinkedIn](https://linkedin.com/in/pradeep-singh4) | [GitHub](https://github.com/pradeep-r04) | [Instagram](https://instagram.com/whypradeeep) |  
+| Pradeep | [Email](pradeep.singh04r@gmail.com)  | [LinkedIn](https://linkedin.com/in/pradeep-singh4) | [GitHub](https://github.com/pradeep-r04) | [Instagram](https://instagram.com/whypradeeep) |    
+
+
+## IMAGES:
+## Home Page -
+![Image](https://github.com/user-attachments/assets/d562fafc-04a3-46e8-ac86-57c307b0a9ef)
