@@ -56,12 +56,14 @@ Daawat/
 1. Create a Firebase project.  
 2. Enable Authentication > Sign-In Method > Google.  
 3. Create a Realtime Database and set rules:
+```
 {
   "rules": {
     ".read": "auth != null",
     ".write": "auth != null"
   }
 }
+```
 4. Add your Firebase config to firebase.js.
 
 ##📌 Future Improvements
